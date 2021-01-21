@@ -1,4 +1,4 @@
-export default function getAppointmentsForDay(state, day) {
+function getAppointmentsForDay(state, day) {
   const appointments = [];
   const dayFilter = state.days.filter(item => item.name === day)
   const appointment_ids = dayFilter[0] ? dayFilter[0].appointments : []
@@ -11,3 +11,15 @@ export default function getAppointmentsForDay(state, day) {
   }
   return appointments;
 }
+
+function getInterview(state, interview) {
+  let interviewData = null;
+  for (const item in state.interviewers) {
+    if (interview && state.interviewers[item].id === interview.interviewer) {
+      interviewData = {student: interview.student, interviewer: state.interviewers[item]}
+    }
+  }
+  return interviewData
+}
+
+module.exports = {getAppointmentsForDay, getInterview}
