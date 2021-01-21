@@ -1,4 +1,4 @@
-export function getAppointmentsForDay(state, day) {
+export default function getAppointmentsForDay(state, day) {
   const appointments = [];
   const dayFilter = state.days.filter(item => item.name === day)
   const appointment_ids = dayFilter[0] ? dayFilter[0].appointments : []
