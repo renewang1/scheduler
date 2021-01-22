@@ -19,7 +19,6 @@ export default function Application(props) {
 })
 
   const bookInterview = function(id, interview) {
-    console.log(id, interview)
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -29,6 +28,7 @@ export default function Application(props) {
       [id]: appointment
     };
     setState({...state, appointments})
+    return axios.put(`/api/appointments/${id}`, {interview})
   }
 
   const setDay = day => setState({...state, day})
@@ -37,7 +37,6 @@ export default function Application(props) {
   const schedule = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
     const interviewers = getInterviewersForDay(state, state.day)
-    console.log(state)
     return (
       <Appointment 
         key={appointment.id}
