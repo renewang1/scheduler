@@ -14,61 +14,30 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: [
-    {
-      id: 1,
-      time: "12pm",
-    },
-    {
-      id: 2,
-      time: "1pm",
-      interview: {
-        student: "Lydia Miller-Jones",
-        interviewer: {
-          id: 1,
-          name: "Sylvia Palmer",
-          avatar: "https://i.imgur.com/LpaY82x.png",
-        }
-      }
-    },
-    {
-      id: 3,
-      time: "2pm",
-      interview: {
-        student: "Rene Wang",
-        interviewer: {
-          id: 2,
-          name: "Tori Malcolm",
-          avatar: "https://i.imgur.com/Nmx0Qxo.png",
-        }
-      }
-    },
-    {
-      id: 4,
-      time: "1pm",
-      interview: {
-        student: "Christina Chung",
-        interviewer: {
-          id: 3,
-          name: "Mildred Nazir",
-          avatar: "https://i.imgur.com/T2WwVfS.png",
-        }
-      }
-    },
-    {
-      id: 5,
-      time: "1pm",
-    }
-    ],
+    appointments: [],
   interviewers: {}
-  })
+})
+
+  const bookInterview = function(id, interview) {
+    console.log(id, interview)
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({...state, appointments})
+  }
 
   const setDay = day => setState({...state, day})
   // const setDays = days => setState(prev => ({...prev, days}))
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const schedule = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
-    const interviewers = getInterviewersForDay(state, day)
+    const interviewers = getInterviewersForDay(state, state.day)
+    console.log(state)
     return (
       <Appointment 
         key={appointment.id}
@@ -76,6 +45,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     )
   })
@@ -95,7 +65,7 @@ export default function Application(props) {
     })
   }, [])
     // console.log(state.interviewers)
-    
+  
 
   return (
     <main className="layout">
