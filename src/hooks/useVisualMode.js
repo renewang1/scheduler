@@ -14,9 +14,11 @@ export default function useVisualMode(initialMode) {
   }
 
   const back = () => {
+    console.log("before back")
     if (history.length > 1) {
+      console.log("inside back")
       setMode(history[history.length - 2])
-      setHistory(history.slice(0, -1))
+      setHistory(prev => [...prev.slice(0, -1)])
     }
   }
 
