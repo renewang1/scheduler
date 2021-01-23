@@ -38,12 +38,10 @@ export default function Appointment(props) {
   }
 
   function confirmDel() {
-    console.log(props)
     transition(CONFIRM)
   }
 
   function cancelDel() {
-    console.log(props)
     transition(SHOW)
   }
 
