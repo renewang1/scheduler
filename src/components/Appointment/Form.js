@@ -6,10 +6,12 @@ export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [error, setError] = useState("");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  //Resets name and interviewer, called when cancel button is clicked
   const reset = function () {
     setName("");
     setInterviewer(null);
   };
+  //Validates whether name inputted, called when confirm button is clicked
   const validate = function() {
     if (name === "") {
       setError("Student name cannot be blank");
@@ -33,9 +35,6 @@ export default function Form(props) {
               setName(event.target.value);
             }}
             data-testid="student-name-input"
-            /*
-              This must be a controlled component
-            */
           />
           <section className="appointment__validation">{error}</section>
         </form>

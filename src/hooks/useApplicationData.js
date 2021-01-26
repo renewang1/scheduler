@@ -10,7 +10,7 @@ export default function useApplicationData() {
   });
 
   const bookInterview = function (id, interview) {
-    // console.log(state)
+    //Setting up appointment and appointments array to pass into setState with new interview
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -19,6 +19,7 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
+    //Setting index to be 0, 1, 2, 3, or 4 depending on id corresponding to day of the week to access in state.days array
     let index = null;
     switch (true) {
       case id < 6:
@@ -40,9 +41,11 @@ export default function useApplicationData() {
         index = null;
         break;
     }
+    //Subtracting 1 from spots and setting up new day object to pass into setState
     const spotMinusOne = state.days[index].spots - 1;
     const stateDay = { ...state.days[index], spots: spotMinusOne };
     const dayMinusCurrDay = [];
+    //Here I push each day object in order to state.days array otherwise days will become unordered in dayList
     for (const item of state.days) {
       if (item.id < index + 1) {
         dayMinusCurrDay.push(item);
@@ -101,6 +104,7 @@ export default function useApplicationData() {
   const setDay = (day) => setState({ ...state, day });
 
   useEffect(() => {
+    //Three get requests to get days, appointments, and interviews from server and set state using that data
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),

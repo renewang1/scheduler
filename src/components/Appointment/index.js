@@ -25,7 +25,7 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+  //Saves name and interviewer in state and server and transitions to SAVING
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -49,9 +49,8 @@ export default function Appointment(props) {
   function edit() {
     transition(EDIT);
   }
-
+  //Sends delete request to server and transitions to EMPTY
   function del() {
-    console.log("del", props);
     transition(DELETING, true);
     props
       .cancelInterview(props.id)
