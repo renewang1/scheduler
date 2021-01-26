@@ -83,8 +83,10 @@ export default function useApplicationData() {
         index = null;
         break;
     }
+    //Adding 1 from spots and setting up new day object to pass into setState
     const spotPlusOne = state.days[index].spots + 1;
     const stateDay = { ...state.days[index], spots: spotPlusOne };
+    //Here I push each day object in order to state.days array otherwise days will become unordered in dayList
     const dayMinusCurrDay = [];
     for (const item of state.days) {
       if (item.id < index + 1) {
