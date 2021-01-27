@@ -9,7 +9,7 @@ export default function useApplicationData() {
     interviewers: {},
   });
 
-  const bookInterview = function (id, interview) {
+  const bookInterview = function (id, interview, edit) {
     //Setting up appointment and appointments array to pass into setState with new interview
     const appointment = {
       ...state.appointments[id],
@@ -41,23 +41,27 @@ export default function useApplicationData() {
         index = null;
         break;
     }
-    //Subtracting 1 from spots and setting up new day object to pass into setState
-    const spotMinusOne = state.days[index].spots - 1;
-    const stateDay = { ...state.days[index], spots: spotMinusOne };
-    const dayMinusCurrDay = [];
-    //Here I push each day object in order to state.days array otherwise days will become unordered in dayList
-    for (const item of state.days) {
-      if (item.id < index + 1) {
-        dayMinusCurrDay.push(item);
+    if (!edit) {
+      const spotMinusOne = state.days[index].spots - 1;
+      //Subtracting 1 from spots and setting up new day object to pass into setState
+      const stateDay = { ...state.days[index], spots: spotMinusOne };
+      const dayMinusCurrDay = [];
+      //Here I push each day object in order to state.days array otherwise days will become unordered in dayList
+      for (const item of state.days) {
+        if (item.id < index + 1) {
+          dayMinusCurrDay.push(item);
+        }
       }
-    }
-    dayMinusCurrDay.push(stateDay);
-    for (const item of state.days) {
-      if (item.id > index + 1) {
-        dayMinusCurrDay.push(item);
+      dayMinusCurrDay.push(stateDay);
+      for (const item of state.days) {
+        if (item.id > index + 1) {
+          dayMinusCurrDay.push(item);
+        }
       }
+      setState({ ...state, appointments, days: dayMinusCurrDay });
+    } else {
+      setState({ ...state, appointments });
     }
-    setState({ ...state, appointments, days: dayMinusCurrDay });
     return axios.put(`/api/appointments/${id}`, { interview });
   };
 

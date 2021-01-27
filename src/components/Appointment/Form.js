@@ -12,15 +12,19 @@ export default function Form(props) {
     setInterviewer(null);
   };
   //Validates whether name inputted, called when confirm button is clicked
-  const validate = function() {
+  const validate = function () {
     if (name === "") {
       setError("Student name cannot be blank");
       return;
     } else {
-      setError(null)
+      setError(null);
     }
-    props.onSave(name, interviewer);
-  }
+    if (props.edit) {
+      props.onSave(name, interviewer, true);
+    } else {
+      props.onSave(name, interviewer, false);
+    }
+  };
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
