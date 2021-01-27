@@ -12,12 +12,6 @@ import useApplicationData from "hooks/useApplicationData";
 import "components/Application.scss";
 
 export default function Application(props) {
-  //   const [state, setState] = useState({
-  //     day: "Monday",
-  //     days: [],
-  //     appointments: [],
-  //     interviewers: {}
-  // })
   const {
     state,
     setDay,
