@@ -34,7 +34,9 @@ export default function Appointment(props) {
     transition(SAVING);
     props
       .bookInterview(props.id, interview, edit)
-      .then(() => transition(SHOW))
+      .then(() => {
+        transition(SHOW);
+      })
       .catch(() => transition(ERROR_SAVE, true));
   }
 
@@ -57,7 +59,6 @@ export default function Appointment(props) {
       .then(() => transition(EMPTY))
       .catch(() => {
         transition(ERROR_DELETE, true);
-        console.log("inside error", props);
       });
   }
 
