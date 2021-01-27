@@ -80,11 +80,9 @@ export default {
     }
   }),
   put: jest.fn((url) => {
-    if (url === "/api/appointments/:id") {
-      return Promise.resolve({
-        status: 204,
-        statusText: "No content",
-      });
-    }
+    return Promise.resolve({
+      status: 204,
+      statusText: "No content",
+    });
   }),
 };
